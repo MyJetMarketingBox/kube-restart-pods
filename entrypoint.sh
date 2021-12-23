@@ -9,8 +9,8 @@ IMAGE=marketingbox.integration-bridge
 NAMESPACE=marketing-box
 #export KUBECONFIG=/tmp/config
 
-TEST=($(for i in $(kubectl get deploy -o wide -n $NAMESPACE | grep $IMAGE | awk {'print $1'}); do echo $i; done))
-RN=($(for i in ${TEST[@]}; do kubectl describe deployment $i -n  $NAMESPACE|grep NewReplicaSet:|awk '{print $2}'; done))
-ARR=($(for i in ${RN[@]}; do kubectl get pods -n $NAMESPACE | grep $i | awk {'print $1'}; done))
-for i in ${ARR[@]}; do kubectl delete pod $i -n $NAMESPACE; done
+TEST=($(for i in $(/usr/local/bin/kubectl get deploy -o wide -n $NAMESPACE | grep $IMAGE | awk {'print $1'}); do echo $i; done))
+RN=($(for i in ${TEST[@]}; do /usr/local/bin/kubectl describe deployment $i -n  $NAMESPACE|grep NewReplicaSet:|awk '{print $2}'; done))
+ARR=($(for i in ${RN[@]}; do /usr/local/bin/kubectl get pods -n $NAMESPACE | grep $i | awk {'print $1'}; done))
+for i in ${ARR[@]}; do /usr/local/bin/kubectl delete pod $i -n $NAMESPACE; done
 
