@@ -5,7 +5,7 @@ set -e
 
 # Extract the base64 encoded config data and write this to the KUBECONFIG
 echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config
-IMAGE=marketingbox.integration-bridge
+#IMAGE=marketingbox.integration-bridge
 NAMESPACE=marketing-box
 export KUBECONFIG=/tmp/config
 
