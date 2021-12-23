@@ -5,8 +5,6 @@ set -e
 
 # Extract the base64 encoded config data and write this to the KUBECONFIG
 echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config
-#IMAGE=marketingbox.integration-bridge
-NAMESPACE=marketing-box
 export KUBECONFIG=/tmp/config
 
 TEST=($(for i in $(/usr/local/bin/kubectl get deploy -o wide -n $NAMESPACE | grep $IMAGE | awk {'print $1'}); do echo $i; done))
