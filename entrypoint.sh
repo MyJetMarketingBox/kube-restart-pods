@@ -7,7 +7,7 @@ set -e
 echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config
 IMAGE=marketingbox.integration-bridge
 NAMESPACE=marketing-box
-#export KUBECONFIG=/tmp/config
+export KUBECONFIG=/tmp/config
 
 TEST=($(for i in $(/usr/local/bin/kubectl get deploy -o wide -n $NAMESPACE | grep $IMAGE | awk {'print $1'}); do echo $i; done))
 RN=($(for i in ${TEST[@]}; do /usr/local/bin/kubectl describe deployment $i -n  $NAMESPACE|grep NewReplicaSet:|awk '{print $2}'; done))
